@@ -1,5 +1,3 @@
-/* Create a structure that can contain student's name, surname and age. Every main line has to be a function call*/
-
 #include<stdio.h>
 #include<stdlib.h>
 #define size 100
@@ -14,40 +12,56 @@ struct studenti{
 //---function area---//
 
 struct studenti trovastud();
-struct studenti Stampa();
+void Stampa(struct studenti s1);
+void looping_call();
+void callback(struct studenti s1);
 
-struct studenti Stampa(struct studenti s1){ //output of my results by passing s1, which had s2 values in it
 
-	printf("Nome: %s", s1.nome);
+//---output of my results---//
+void callback(struct studenti s1){
+ 	 trovastud(s1);
+ 	 Stampa(s1); 
+}
+
+void looping_call(){
+ struct studenti s1;
+ int a;
+ printf("\nVuoi inserire altri studenti?\n-Si=1\n-No=0\n");
+ scanf("%i", &a);
+ 	if(a==1){
+ 	 callback(s1);
+ 	 looping_call();
+ 	 }
+ return;
+}
+
+void Stampa(struct studenti s1){
+	printf("\nNome: %s", s1.nome);
 	printf("\nCognome: %s", s1.cognome);
 	printf("\nAnni: %i\n", s1.anni);
-	
 	}
 
 struct studenti trovastud(){
-
 	struct studenti s2;
-
-	printf("\nNome studente: ");
-	scanf("%[^\n]%*c", s2.nome); //getting values until enter is pressed
-	
-	printf("Cognome studente: ");
-	scanf("%[^\n]%*c", s2.cognome); //getting values until enter is pressed
-	
-	printf("Età studente: ");
-	scanf("%i", &s2.anni);
-
-return s2;
+	printf("\nInserisci il nome studente: ");
+	scanf(" %[^\n]%*c", s2.nome); //getting values until enter is pressed
+	printf("\nInserisci il cognome studente: ");
+	scanf(" %[^\n]%*c", s2.cognome); //getting values until enter is pressed
+	printf("\nInserisci l'età studente: ");
+	scanf(" %i", &s2.anni);
+	return s2;
 }
 
-//---end of function area---//
-
-//---| main |---//
-
+//---end of function area--//
+	
 int main(void){
  	struct studenti s1;
  	struct studenti s3;
+ 	struct studenti s4;
  	s1 = trovastud();
- 	s3 = Stampa(s1);
+ 	Stampa(s1); 
+ 	s1.nome[size]='\0'; //emptying my array nome
+ 	s1.cognome[size]='\0'; //emptying my array cognome
+	looping_call();
  return 0;
 }
